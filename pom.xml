@@ -137,6 +137,6 @@
         <testerina.version>0.8.0-SNAPSHOT</testerina.version>
         <tool.swagger.version>0.8.0-SNAPSHOT</tool.swagger.version>
         <ballerina.container.version>0.8.0-ALPHA</ballerina.container.version>
-        <docerina.version>0.8.0-SNAPSHOT</docerina.version>
+        <docerina.version>0.8.0-ALPHA</docerina.version>
     </properties>
 </project>
