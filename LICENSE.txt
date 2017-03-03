@@ -25,7 +25,7 @@ commons-lang3-3.5.jar                                                           
 commons-logging-1.2.jar                                                         bundle         apache2   1702
 commons-pool-1.5.6.wso2v1.jar                                                   bundle         apache2   5589
 commons-vfs2-2.0-wso2v15.jar                                                    bundle         apache2   11766
-connectors-0.8.1.jar                                                            jar            apache2   2135
+connectors-0.8.2.jar                                                            jar            apache2   2135
 docerina-0.8.1.jar                                                              jar            apache2   2130
 geronimo-activation_1.1_spec-1.1.jar                                            bundle         apache2   2103
 geronimo-stax-api_1.0_spec-1.0.1.jar                                            bundle         apache2   635

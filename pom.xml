@@ -28,7 +28,7 @@
     <groupId>org.ballerinalang.tools</groupId>
     <artifactId>ballerina-tools</artifactId>
     <packaging>pom</packaging>
-    <version>0.8.3-SNAPSHOT</version>
+    <version>0.8.3</version>
     <name>Ballerina - Tools</name>
     <description>Ballerina - Tools</description>
 
@@ -192,6 +192,6 @@
         <ballerina.container.version>0.8.1</ballerina.container.version>
         <docerina.version>0.8.1</docerina.version>
         <docerina.maven.plugin.version>0.8.1</docerina.maven.plugin.version>
-        <ballerina.connectors.version>0.8.1</ballerina.connectors.version>
+        <ballerina.connectors.version>0.8.2</ballerina.connectors.version>
     </properties>
 </project>
