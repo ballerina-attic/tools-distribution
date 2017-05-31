@@ -200,11 +200,10 @@ $JAVACMD \
 	-Djava.endorsed.dirs="$JAVA_ENDORSED_DIRS" \
 	-Dballerina.home=$BALLERINA_HOME \
 	-Dballerina.version=${project.version} \
-	-Djava.util.logging.config.file="$BALLERINA_HOME/bre/conf/logging.properties" \
-	-Djava.util.logging.manager="org.ballerinalang.launcher.BLogManager" \
 	-Dtransports.netty.conf="$BALLERINA_HOME/bre/conf/netty-transports.yml" \
 	-Djava.io.tmpdir="$BALLERINA_HOME/tmp" \
 	-Denable.nonblocking=false \
 	-Djava.security.egd=file:/dev/./urandom \
 	-Dfile.encoding=UTF8 \
+	-Dlog4j.configurationFile="$BALLERINA_HOME/bre/conf/log4j2.properties" \
 	org.ballerinalang.launcher.Main "$@"
