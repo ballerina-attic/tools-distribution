@@ -53,7 +53,7 @@ import java.util.Map;
 import javax.net.ssl.SSLException;
 
 /**
- * WebSocket client class for test
+ * WebSocket client class for test.
  */
 public class WebSocketClient {
 
