@@ -182,6 +182,7 @@
                 <include>javax.jms:javax.jms-api</include>
                 <include>javax.transaction:javax.transaction-api</include>
                 <include>org.atomikos.wso2:atomikos</include>
+                <include>org.quartz-scheduler:quartz</include>
             </includes>
         </dependencySet>
 
