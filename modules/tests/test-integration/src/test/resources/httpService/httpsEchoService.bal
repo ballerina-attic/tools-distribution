@@ -4,7 +4,7 @@ import ballerina.net.http;
     basePath:"/echo",
     port:9095,
     scheme:"https",
-    keyStoreFile:"${ballerina.home}/bre/security/wso2carbon.jks",
+    keyStoreFile:"$${ballerina.home}/bre/security/wso2carbon.jks",
     keyStorePass:"wso2carbon",
     certPass:"wso2carbon"
 }
