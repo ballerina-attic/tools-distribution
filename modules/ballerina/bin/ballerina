@@ -200,7 +200,8 @@ $JAVACMD \
 	-Djava.endorsed.dirs="$JAVA_ENDORSED_DIRS" \
 	-Dballerina.home=$BALLERINA_HOME \
 	-Dballerina.version=${project.version} \
-	-Djava.util.logging.config.file="$BALLERINA_HOME/bre/conf/logging.properties" \
+	-Dballerina.conf="$BALLERINA_HOME/bre/conf/ballerina.conf" \
+	-Dballerina.runtime.log="$BALLERINA_HOME/logs/bre.log" \
 	-Djava.util.logging.manager="org.ballerinalang.logging.BLogManager" \
 	-Dtransports.netty.conf="$BALLERINA_HOME/bre/conf/netty-transports.yml" \
 	-Djava.io.tmpdir="$BALLERINA_HOME/tmp" \
