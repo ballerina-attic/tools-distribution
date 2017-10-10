@@ -1,7 +1,9 @@
-import ballerina.lang.messages;
 import ballerina.lang.system;
 import ballerina.net.jms;
+import ballerina.net.jms.jmsmessage;
 import ballerina.net.http;
+import ballerina.net.http.response;
+
 
 @jms:configuration {
     initialContextFactory:"org.apache.activemq.jndi.ActiveMQInitialContextFactory",
@@ -9,13 +11,13 @@ import ballerina.net.http;
     connectionFactoryType:"queue",
     connectionFactoryName:"QueueConnectionFactory",
     destination:"MyQueue",
-    acknowledgmentMode:"AUTO_ACKNOWLEDGE"
+    acknowledgementMode:"AUTO_ACKNOWLEDGE"
 }
 service<jms> jmsService {
-    resource onMessage (message m) {
+    resource onMessage (jms:JMSMessage m) {
         //Process the message
-        string msgType = messages:getProperty(m, "JMS_MESSAGE_TYPE");
-        string stringPayload = messages:getStringPayload(m);
+        string msgType = jmsmessage:getStringProperty(m, "JMS_MESSAGE_TYPE");
+        string stringPayload = jmsmessage:getTextMessageContent(m);
         system:println("message type : " + msgType);
         system:println(stringPayload);
     }
@@ -32,9 +34,8 @@ service<http> echo {
         methods:["POST"],
         path:"/"
     }
-    resource echo (message m) {
-        message resp = {};
-        messages:setStringPayload(resp, "hello world");
-        reply resp;
+    resource echo (http:Request req, http:Response res) {
+        response:setStringPayload(res, "hello world");
+        response:send(res);
     }
 }
