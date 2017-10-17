@@ -175,6 +175,7 @@
                 <include>org.apache.james:apache-mime4j-core</include>
                 <include>com.beust:jcommander</include>
                 <include>org.slf4j:slf4j-api</include>
+                <include>org.slf4j:jcl-over-slf4j</include>
                 <include>org.slf4j:slf4j-jdk14</include>
                 <include>io.netty:netty-common</include>
                 <include>io.netty:netty-buffer</include>
