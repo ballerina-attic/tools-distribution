@@ -105,6 +105,16 @@ public class HTTPVerbsPassthruTestCases extends IntegrationTestCase {
         Assert.assertEquals(response.getData(), "ballerina", "Message content mismatched");
     }
 
+
+    //TODO complete this
+    @Test(description = "Test simple resource invoke with PATCH method")
+    public void testPATCHMethod() throws IOException {
+        HttpResponse response = HttpClientRequest.doPost(ballerinaServer.getServiceURLHttp("headQuote/forward22")
+                , "test", new HashMap<>());
+        Assert.assertEquals(response.getResponseCode(), 200, "Response code mismatched");
+        Assert.assertEquals(response.getData(), "ballerina", "Message content mismatched");
+    }
+
     @AfterClass
     private void cleanup() throws Exception {
         ballerinaServer.stopServer();

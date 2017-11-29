@@ -51,6 +51,15 @@ service<http> headQuoteService {
         clientResponse, _ = endPoint.execute(method, "/getQuote/stocks", req);
         _ = resp.forward(clientResponse);
     }
+
+    @http:resourceConfig {
+        methods:["PATCH"]
+    }
+    resource testPatch (http:Request req, http:Response resp) {
+        resp.setJsonPayload({"hello":"wso2"});
+        resp.setStatusCode(204);
+        _ = resp.send();
+    }
 }
 
 @http:configuration {basePath:"/sampleHead"}
