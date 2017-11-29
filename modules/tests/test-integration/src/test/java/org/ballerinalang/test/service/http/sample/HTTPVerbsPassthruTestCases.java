@@ -114,14 +114,7 @@ public class HTTPVerbsPassthruTestCases extends IntegrationTestCase {
 
     @Test(description = "Test simple passthrough test case For empty payload POST Action")
     public void testEmptyPayloadPOSTAction() throws IOException {
-        Map<String, String> headers = new HashMap<>();
-        HttpResponse response = HttpClientRequest.doPost(ballerinaServer.getServiceURLHttp("headQuote/default")
-                , null, headers);
-        if (response == null) {
-            //Retrying to avoid intermittent test failure
-            response = HttpClientRequest.doPost(ballerinaServer.getServiceURLHttp("headQuote/default")
-                    , null, headers);;
-        }
+        HttpResponse response = HttpClientRequest.doGet(ballerinaServer.getServiceURLHttp("headQuote/testPost"));
         Assert.assertNotNull(response);
         Assert.assertEquals(response.getResponseCode(), 200, "Response code mismatched");
         Assert.assertEquals(response.getData(), "0", "Message content mismatched");
