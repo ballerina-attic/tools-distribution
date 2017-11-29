@@ -44,18 +44,19 @@ service<http> headQuoteService {
     }
 
     @http:resourceConfig {
-        path:"/forward11"
+        methods:["GET"],
+        path:"/testOPTIONS"
     }
-    resource forwardRes11 (http:Request req, http:Response resp) {
+    resource res33 (http:Request req, http:Response resp) {
         http:Response clientResponse;
-        clientResponse, _ = endPoint.forward("/getQuote/stocks", req);
+        clientResponse, _ = endPoint.options("/getQuote/testLength", {});
         _ = resp.forward(clientResponse);
     }
 
     @http:resourceConfig {
-        path:"/forward22"
+        path:"/forward11"
     }
-    resource forwardRes22 (http:Request req, http:Response resp) {
+    resource forwardRes11 (http:Request req, http:Response resp) {
         http:Response clientResponse;
         clientResponse, _ = endPoint.forward("/getQuote/stocks", req);
         _ = resp.forward(clientResponse);
@@ -124,6 +125,15 @@ service<http> quoteService {
     }
     resource product11 (http:Request req, http:Response res) {
         res.setStringPayload("dispatched to patch");
+        _ = res.send();
+    }
+
+    @http:resourceConfig {
+        methods:["OPTIONS"],
+        path:"/stocks"
+    }
+    resource product11 (http:Request req, http:Response res) {
+        res.setStringPayload("dispatched to options");
         _ = res.send();
     }
 

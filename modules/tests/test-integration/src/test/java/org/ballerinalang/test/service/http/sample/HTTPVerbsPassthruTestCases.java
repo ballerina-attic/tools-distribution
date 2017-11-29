@@ -74,11 +74,18 @@ public class HTTPVerbsPassthruTestCases extends IntegrationTestCase {
         Assert.assertEquals(response.getData(), "ballerina", "Message content mismatched");
     }
 
-    @Test(description = "Test simple passthrough test case For GET with URL. /headQuote/default")
+    @Test(description = "Test connector action PATCH with URL. /headQuote/testPATCH")
     public void testActionPatch() throws IOException {
         HttpResponse response = HttpClientRequest.doGet(ballerinaServer.getServiceURLHttp("headQuote/testPATCH"));
         Assert.assertEquals(response.getResponseCode(), 200, "Response code mismatched");
         Assert.assertEquals(response.getData(), "dispatched to patch", "Message content mismatched");
+    }
+
+    @Test(description = "Test connector action OPTIONS with URL. /headQuote/testOPTIONS")
+    public void testActionOptions() throws IOException {
+        HttpResponse response = HttpClientRequest.doGet(ballerinaServer.getServiceURLHttp("headQuote/testOPTIONS"));
+        Assert.assertEquals(response.getResponseCode(), 200, "Response code mismatched");
+        Assert.assertEquals(response.getHeaders().get("Allow"), "POST, OPTIONS", "Header mismatched");
     }
 
     @Test(description = "Test simple passthrough test case with default resource")
@@ -106,10 +113,25 @@ public class HTTPVerbsPassthruTestCases extends IntegrationTestCase {
 
     @Test(description = "Test simple passthrough test case with 'forward' For POST with URL. /headQuote/forward22")
     public void testForwardActionWithPOST() throws IOException {
-        HttpResponse response = HttpClientRequest.doPost(ballerinaServer.getServiceURLHttp("headQuote/forward22")
+        HttpResponse response = HttpClientRequest.doPost(ballerinaServer.getServiceURLHttp("headQuote/forward11")
                 , "test", new HashMap<>());
         Assert.assertEquals(response.getResponseCode(), 200, "Response code mismatched");
         Assert.assertEquals(response.getData(), "ballerina", "Message content mismatched");
+    }
+
+    //TODO
+    @Test(description = "Test simple passthrough test case with 'forward' For OPTIONS with URL. /headQuote/forward11")
+    public void testForwardActionWithOPTIONS() throws IOException {
+        HttpResponse response = HttpClientRequest.doOptions(ballerinaServer.getServiceURLHttp("headQuote/forward11"));
+        Assert.assertEquals(response.getResponseCode(), 200, "Response code mismatched");
+        Assert.assertEquals(response.getData(), "dispatched to options", "Message content mismatched");
+    }
+
+    @Test(description = "Test simple passthrough test case with 'forward' For PATCH with URL. /headQuote/forward11")
+    public void testForwardActionWithPATCH() throws IOException {
+        HttpResponse response = HttpClientRequest.doOptions(ballerinaServer.getServiceURLHttp("headQuote/forward11"));
+        Assert.assertEquals(response.getResponseCode(), 200, "Response code mismatched");
+        Assert.assertEquals(response.getData(), "dispatched to patch", "Message content mismatched");
     }
 
     @Test(description = "Test simple passthrough test case For empty payload POST Action")
@@ -119,7 +141,6 @@ public class HTTPVerbsPassthruTestCases extends IntegrationTestCase {
         Assert.assertEquals(response.getResponseCode(), 200, "Response code mismatched");
         Assert.assertEquals(response.getData(), "0", "Message content mismatched");
     }
-
 
     //TODO complete this
     @Test(description = "Test simple resource invoke with PATCH method")
