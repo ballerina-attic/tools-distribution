@@ -74,6 +74,13 @@ public class HTTPVerbsPassthruTestCases extends IntegrationTestCase {
         Assert.assertEquals(response.getData(), "ballerina", "Message content mismatched");
     }
 
+    @Test(description = "Test simple passthrough test case For GET with URL. /headQuote/default")
+    public void testActionPatch() throws IOException {
+        HttpResponse response = HttpClientRequest.doGet(ballerinaServer.getServiceURLHttp("headQuote/testPATCH"));
+        Assert.assertEquals(response.getResponseCode(), 200, "Response code mismatched");
+        Assert.assertEquals(response.getData(), "dispatched to patch", "Message content mismatched");
+    }
+
     @Test(description = "Test simple passthrough test case with default resource")
     public void testPassthroughSampleWithDefaultResource() throws IOException {
         HttpResponse response = HttpClientRequest.doHead(ballerinaServer.getServiceURLHttp("headQuote/default"));
@@ -103,6 +110,21 @@ public class HTTPVerbsPassthruTestCases extends IntegrationTestCase {
                 , "test", new HashMap<>());
         Assert.assertEquals(response.getResponseCode(), 200, "Response code mismatched");
         Assert.assertEquals(response.getData(), "ballerina", "Message content mismatched");
+    }
+
+    @Test(description = "Test simple passthrough test case For empty payload POST Action")
+    public void testEmptyPayloadPOSTAction() throws IOException {
+        Map<String, String> headers = new HashMap<>();
+        HttpResponse response = HttpClientRequest.doPost(ballerinaServer.getServiceURLHttp("headQuote/default")
+                , null, headers);
+        if (response == null) {
+            //Retrying to avoid intermittent test failure
+            response = HttpClientRequest.doPost(ballerinaServer.getServiceURLHttp("headQuote/default")
+                    , null, headers);;
+        }
+        Assert.assertNotNull(response);
+        Assert.assertEquals(response.getResponseCode(), 200, "Response code mismatched");
+        Assert.assertEquals(response.getData(), "0", "Message content mismatched");
     }
 
 

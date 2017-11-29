@@ -3,13 +3,15 @@ import ballerina.net.http;
 @http:configuration {basePath:"/headQuote"}
 service<http> headQuoteService {
 
+    endpoint<http:HttpClient> endPoint {
+        create http:HttpClient("http://localhost:9090", {});
+    }
+
     @http:resourceConfig {
         path:"/default"
     }
     resource defaultResource (http:Request req, http:Response resp) {
-        endpoint<http:HttpClient> endPoint {
-            create http:HttpClient("http://localhost:9090", {});
-        }
+
         string method = req.getMethod();
         http:Response clientResponse;
         clientResponse, _ = endPoint.execute(method, "/getQuote/stocks", req);
@@ -17,12 +19,34 @@ service<http> headQuoteService {
     }
 
     @http:resourceConfig {
+        methods:["GET"],
+        path:"/testPost"
+    }
+    resource res11 (http:Request req, http:Response resp) {
+        endpoint<http:HttpClient> endPoint {}
+        http:Options conOptions = {
+            enableChunking:false
+        };
+        endPoint =  create http:HttpClient("http://localhost:9090", conOptions);
+        http:Response clientResponse;
+        clientResponse, _ = endPoint.post("/getQuote/testLength", {});
+        _ = resp.forward(clientResponse);
+    }
+
+    @http:resourceConfig {
+        methods:["GET"],
+        path:"/testPATCH"
+    }
+    resource res22 (http:Request req, http:Response resp) {
+        http:Response clientResponse;
+        clientResponse, _ = endPoint.patch("/getQuote/stocks", {});
+        _ = resp.forward(clientResponse);
+    }
+
+    @http:resourceConfig {
         path:"/forward11"
     }
     resource forwardRes11 (http:Request req, http:Response resp) {
-        endpoint<http:HttpClient> endPoint {
-              create http:HttpClient("http://localhost:9090", {});
-        }
         http:Response clientResponse;
         clientResponse, _ = endPoint.forward("/getQuote/stocks", req);
         _ = resp.forward(clientResponse);
@@ -32,9 +56,6 @@ service<http> headQuoteService {
         path:"/forward22"
     }
     resource forwardRes22 (http:Request req, http:Response resp) {
-        endpoint<http:HttpClient> endPoint {
-              create http:HttpClient("http://localhost:9090", {});
-        }
         http:Response clientResponse;
         clientResponse, _ = endPoint.forward("/getQuote/stocks", req);
         _ = resp.forward(clientResponse);
@@ -44,9 +65,6 @@ service<http> headQuoteService {
         path:"/getStock/{method}"
     }
     resource commonResource (http:Request req, http:Response resp, string method) {
-        endpoint<http:HttpClient> endPoint {
-            create http:HttpClient("http://localhost:9090", {});
-        }
         http:Response clientResponse;
         clientResponse, _ = endPoint.execute(method, "/getQuote/stocks", req);
         _ = resp.forward(clientResponse);
@@ -101,11 +119,30 @@ service<http> quoteService {
     }
 
     @http:resourceConfig {
+        methods:["PATCH"],
+        path:"/stocks"
+    }
+    resource product11 (http:Request req, http:Response res) {
+        res.setStringPayload("dispatched to patch");
+        _ = res.send();
+    }
+
+    @http:resourceConfig {
         path:"/stocks"
     }
     resource defaultStock (http:Request req, http:Response res) {
         res.setHeader("Method", "any");
         res.setStringPayload("default");
+        _ = res.send();
+    }
+
+    @http:resourceConfig {
+        methods:["POST"],
+        path:"/testLength"
+    }
+    resource product22 (http:Request req, http:Response res) {
+        int length = req.getContentLength();
+        res.setStringPayload(<string>length);
         _ = res.send();
     }
 }
