@@ -132,7 +132,7 @@ service<http> quoteService {
         methods:["OPTIONS"],
         path:"/stocks"
     }
-    resource product11 (http:Request req, http:Response res) {
+    resource product12 (http:Request req, http:Response res) {
         res.setStringPayload("dispatched to options");
         _ = res.send();
     }
