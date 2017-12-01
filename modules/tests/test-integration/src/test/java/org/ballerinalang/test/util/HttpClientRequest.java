@@ -123,20 +123,6 @@ public class HttpClientRequest {
         }
     }
 
-    /**
-     * Send an HTTP PATCH request to a service.
-     *
-     * @param endpoint - service endpoint
-     * @param payload - message payload
-     * @param headers http request headers map
-     * @return - HttpResponse from end point
-     * @throws IOException If an error occurs while sending the PATCH request
-     */
-    public static HttpResponse doPatch(String endpoint, String payload, Map<String, String> headers)
-            throws IOException {
-        return executeRequestWithRequestBody(TestConstant.HTTP_METHOD_POST, endpoint, payload, headers);
-    }
-
     public static HttpResponse executeRequestWithRequestBody(String method, String endpoint, String payload
             , Map<String, String> headers) throws IOException {
         HttpURLConnection urlConnection = null;
