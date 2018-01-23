@@ -18,9 +18,10 @@ service<http> echo {
         methods:["GET"],
         path:"/"
     }
-    resource echo (http:Request req, http:Response res) {
+    resource echo (http:Connection con, http:Request req) {
+        http:Response res = {};
         res.setStringPayload("hello world");
-        _ = res.send();
+        _ = con.respond(res);
         println("successful");
     }
 }
@@ -34,8 +35,9 @@ service<http> echoDummy {
         methods:["POST"],
         path:"/"
     }
-    resource echoDummy (http:Request req, http:Response res) {
+    resource echoDummy (http:Connection con, http:Request req) {
+        http:Response res = {};
         res.setStringPayload("hello world");
-        _ = res.send();
+        _ = con.respond(res);
     }
 }
