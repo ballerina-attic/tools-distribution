@@ -67,30 +67,11 @@ public class HttpClientRequest {
      * @param postBody - message payload
      * @param headers http request headers map
      * @return - HttpResponse from end point
-     * @throws IOException If an error occurs while sending the GET request
+     * @throws IOException If an error occurs while sending the POST request
      */
     public static HttpResponse doPost(String endpoint, String postBody, Map<String, String> headers)
             throws IOException {
-        HttpURLConnection urlConnection = null;
-        try {
-            urlConnection = getURLConnection(endpoint);
-            setHeadersAndMethod(urlConnection, headers, TestConstant.HTTP_METHOD_POST);
-            OutputStream out = urlConnection.getOutputStream();
-            try {
-                Writer writer = new OutputStreamWriter(out, TestConstant.CHARSET_NAME);
-                writer.write(postBody);
-                writer.close();
-            } finally {
-                if (out != null) {
-                    out.close();
-                }
-            }
-            return buildResponse(urlConnection);
-        } finally {
-            if (urlConnection != null) {
-                urlConnection.disconnect();
-            }
-        }
+        return executeRequestWithRequestBody(TestConstant.HTTP_METHOD_POST, endpoint, postBody, headers);
     }
 
     /**
@@ -138,6 +119,30 @@ public class HttpClientRequest {
         } finally {
             if (conn != null) {
                 conn.disconnect();
+            }
+        }
+    }
+
+    public static HttpResponse executeRequestWithRequestBody(String method, String endpoint, String payload
+            , Map<String, String> headers) throws IOException {
+        HttpURLConnection urlConnection = null;
+        try {
+            urlConnection = getURLConnection(endpoint);
+            setHeadersAndMethod(urlConnection, headers, method);
+            OutputStream out = urlConnection.getOutputStream();
+            try {
+                Writer writer = new OutputStreamWriter(out, TestConstant.CHARSET_NAME);
+                writer.write(payload);
+                writer.close();
+            } finally {
+                if (out != null) {
+                    out.close();
+                }
+            }
+            return buildResponse(urlConnection);
+        } finally {
+            if (urlConnection != null) {
+                urlConnection.disconnect();
             }
         }
     }
